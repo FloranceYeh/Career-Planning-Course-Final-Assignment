@@ -38,14 +38,21 @@
   </header>
 
   <nav class="site-nav" aria-label="目录导航">
-    <div class="container nav-inner">
-      <a href="#goal">一、职业目标设定</a>
-      <a href="#actions">二、具体行动与成效</a>
-      <a href="#adjust">三、动态调整</a>
-      <a href="#summary">四、总结</a>
-      <span class="nav-spacer" aria-hidden="true"></span>
-      <button id="themeBtn" class="nav-btn" type="button" aria-label="切换日夜模式">切换主题</button>
-      <button id="printBtn" class="nav-btn" type="button">打印/导出 PDF</button>
+    <div class="container nav-shell">
+      <button id="navToggleBtn" class="nav-toggle" type="button" aria-expanded="false" aria-controls="navMenu"
+        aria-label="展开目录导航">
+        <span>目录导航</span>
+        <span class="nav-toggle-icon" aria-hidden="true"></span>
+      </button>
+      <div id="navMenu" class="nav-inner">
+        <a href="#goal">一、职业目标设定</a>
+        <a href="#actions">二、具体行动与成效</a>
+        <a href="#adjust">三、动态调整</a>
+        <a href="#summary">四、总结</a>
+        <span class="nav-spacer" aria-hidden="true"></span>
+        <button id="themeBtn" class="nav-btn" type="button" aria-label="切换日夜模式">切换主题</button>
+        <button id="printBtn" class="nav-btn" type="button">打印/导出 PDF</button>
+      </div>
     </div>
   </nav>
 
@@ -81,6 +88,7 @@
 
         <section class="card">
           <h2 class="card-title">个人技能图表</h2>
+          <div class="personal-skills">
           <div class="placeholder" data-kind="chart" aria-label="专业知识技能脑图">
             <div class="placeholder-title">专业知识技能</div>
             <pre class="mermaid">
@@ -89,29 +97,30 @@ mindmap
     前端（HTML/CSS/JS）
     后端（API/数据库/Python/Node）
     工具链（Git/部署）
-            </pre>
-          </div>
-          <div class="placeholder" data-kind="chart" aria-label="可迁移技能雷达图">
-            <div class="placeholder-title">可迁移技能</div>
-            <pre class="mermaid">
+              </pre>
+            </div>
+            <div class="placeholder" data-kind="chart" aria-label="可迁移技能雷达图">
+              <div class="placeholder-title">可迁移技能</div>
+              <pre class="mermaid">
 mindmap
   可迁移技能
     沟通能力
     团队合作
     自学能力
     创造能力
-            </pre>
-          </div>
-          <div class="placeholder" data-kind="chart" aria-label="自我管理技能脑图">
-            <div class="placeholder-title">自我管理技能</div>
-            <pre class="mermaid">
+              </pre>
+            </div>
+            <div class="placeholder" data-kind="chart" aria-label="自我管理技能脑图">
+              <div class="placeholder-title">自我管理技能</div>
+              <pre class="mermaid">
 mindmap
   自我管理技能
     时间管理
     目标设定
     反思与调整
     定期运动
-            </pre>
+              </pre>
+            </div>
           </div>
         </section>
       </aside>
