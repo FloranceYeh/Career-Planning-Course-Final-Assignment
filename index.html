@@ -44,6 +44,7 @@
       <a href="#adjust">三、动态调整</a>
       <a href="#summary">四、总结</a>
       <span class="nav-spacer" aria-hidden="true"></span>
+      <button id="themeBtn" class="nav-btn" type="button" aria-label="切换日夜模式">切换主题</button>
       <button id="printBtn" class="nav-btn" type="button">打印/导出 PDF</button>
     </div>
   </nav>
@@ -79,20 +80,37 @@
         </section>
 
         <section class="card">
-          <h2 class="card-title">图表占位</h2>
-          <div class="placeholder" data-kind="chart" aria-label="技能雷达图占位区">
-            <div class="placeholder-title">技能雷达图（占位）</div>
-            <div class="placeholder-hint">后续可插入图片，或用 ECharts/Excel 导出图替换</div>
+          <h2 class="card-title">个人技能图表</h2>
+          <div class="placeholder" data-kind="chart" aria-label="专业知识技能脑图">
+            <div class="placeholder-title">专业知识技能</div>
             <pre class="mermaid">
-radar-beta
-  axis m["Math"], s["Science"], e["English"]
-  axis h["History"], g["Geography"], a["Art"]
-  curve a["Alice"]{85, 90, 80, 70, 75, 90}
-  curve b["Bob"]{70, 75, 85, 80, 90, 85}
-
-  max 100
-  min 0
-
+mindmap
+  技术
+    前端（HTML/CSS/JS）
+    后端（API/数据库/Python/Node）
+    工具链（Git/部署）
+            </pre>
+          </div>
+          <div class="placeholder" data-kind="chart" aria-label="可迁移技能雷达图">
+            <div class="placeholder-title">可迁移技能</div>
+            <pre class="mermaid">
+mindmap
+  可迁移技能
+    沟通能力
+    团队合作
+    自学能力
+    创造能力
+            </pre>
+          </div>
+          <div class="placeholder" data-kind="chart" aria-label="自我管理技能脑图">
+            <div class="placeholder-title">自我管理技能</div>
+            <pre class="mermaid">
+mindmap
+  自我管理技能
+    时间管理
+    目标设定
+    反思与调整
+    定期运动
             </pre>
           </div>
         </section>
@@ -134,7 +152,7 @@ radar-beta
 
           <div class="two-col">
             <div class="card">
-              <h3 class="card-title">目标画像（可按需要改）</h3>
+              <h3 class="card-title">目标画像</h3>
               <ul class="bullets">
                 <li>岗位方向：教育行业研发 / edtech 产品技术岗 / 教育平台开发</li>
                 <li>产出形式：学习工具、题库/资源平台、教学辅助系统</li>
@@ -142,7 +160,7 @@ radar-beta
               </ul>
             </div>
             <div class="card">
-              <h3 class="card-title">核心能力（可补充量化指标）</h3>
+              <h3 class="card-title">核心能力</h3>
               <ul class="bullets">
                 <li>前端：页面实现、交互、组件化、工程化</li>
                 <li>后端：基本接口设计、数据存储、部署与维护（逐步强化）</li>
@@ -165,21 +183,21 @@ radar-beta
             这种“边做边学”的方式，使我能在真实需求中持续打磨技能。
           </p>
           <div class="callout">
-            <strong>成效与证据（建议补充）</strong>
+            <strong>成效与证据</strong>
             <ul>
-              <li>迭代记录：版本更新日志、提交记录或页面截图</li>
-              <li>内容沉淀：文章数量、学习笔记分类、读者反馈</li>
-              <li>数据指标：访问量/阅读时长/收藏转发（如有）</li>
+              <li>持续迭代：博客页面结构、样式与功能会随着学习进度不断调整与重构。</li>
+              <li>可追溯记录：GitHub 提交记录可体现真实的学习过程与改动轨迹。</li>
+              <li>内容沉淀：以笔记/总结/工具页的形式，把知识整理成可复用的学习资源。</li>
             </ul>
           </div>
 
           <div class="placeholder-row">
-            <div class="placeholder" data-kind="chart" aria-label="博客迭代时间线占位区">
-              <div class="placeholder-title">博客迭代时间线（占位）</div>
-              <div class="placeholder-hint">可放折线图/里程碑图：主题改造、功能上线、重构节点等</div>
+            <div class="placeholder" data-kind="chart" aria-label="博客迭代时间线">
+              <div class="placeholder-title">博客迭代时间线</div>
+              <div class="placeholder-hint">从“能用”到“好用”，再到“可复用”的逐步优化过程。</div>
               <pre class="mermaid">
 timeline
-  title 博客迭代里程碑（占位）
+  title 博客迭代里程碑
   高二开始 : 搭建博客 : 记录学习与分享
   逐步迭代 : 修改主题样式 : 增加栏目/标签
   功能增强 : 增加小工具页面 : 优化阅读体验
@@ -190,7 +208,7 @@ timeline
 
           <div class="card blog-embed" aria-label="博客 iframe 预览">
             <h3 class="card-title">博客预览（iframe）</h3>
-            <p class="muted">若此处为空白，通常是网络连接问题；请点击侧边“个人博客”链接在新标签页打开。</p>
+            <p class="muted">若此处为空白，可能是站点的安全策略禁止被嵌入；请点击<a href="https://Florance.top" target="_blank" rel="noopener noreferrer">“个人博客”</a>在新标签页查看。</p>
             <div class="embed-frame">
               <iframe class="blog-iframe" src="https://Florance.top" title="个人博客预览" loading="lazy"
                 referrerpolicy="no-referrer"></iframe>
@@ -205,11 +223,11 @@ timeline
           </p>
           <div class="two-col">
             <div class="card">
-              <h3 class="card-title">项目清单（可替换为真实项目）</h3>
+              <h3 class="card-title">项目清单</h3>
               <ul class="bullets">
-                <li>学习辅助：错题整理/知识点卡片/文档批注</li>
-                <li>效率工具：一键整理文件、批量重命名、快捷输入脚本</li>
-                <li>趣味练手：小游戏、交互 Demo、网页小实验</li>
+                <li>学习辅助：知识点卡片、复习清单、资料整理与检索的小工具页面。</li>
+                <li>效率工具：批量整理文件、快捷输入、自动化脚本（用于节省重复操作时间）。</li>
+                <li>趣味练手：小游戏与交互 Demo（用于练习事件、状态与 UI 设计）。</li>
               </ul>
             </div>
             <div class="card">
@@ -222,14 +240,14 @@ timeline
             </div>
           </div>
           <div class="placeholder-row">
-            <div class="placeholder" data-kind="chart" aria-label="项目类型占比图占位区">
-              <div class="placeholder-title">项目类型占比 / 技术栈分布（占位）</div>
-              <div class="placeholder-hint">可用饼图/柱状图展示：教育类、工具类、练手类项目比例与用到的技术</div>
+            <div class="placeholder" data-kind="chart" aria-label="项目类型分布">
+              <div class="placeholder-title">项目类型分布（按时间投入粗略归类）</div>
+              <div class="placeholder-hint">不同项目承担不同目标：学习工具偏“可用性”，练手项目偏“技能覆盖”。</div>
               <pre class="mermaid">
-pie title 项目类型占比（占位）
-  "教育学习类" : 40
+pie title 项目类型占比
+  "教育学习类" : 45
   "效率工具类" : 35
-  "趣味练手类" : 25
+  "趣味练手类" : 20
             </pre>
             </div>
           </div>
@@ -241,7 +259,7 @@ pie title 项目类型占比（占位）
             例如：如何进行学习者分析、如何设置学习目标、如何提供及时反馈、如何用评价数据反推学习路径优化。
           </p>
           <div class="callout">
-            <strong>成效（可用案例说明）</strong>
+            <strong>成效</strong>
             <ul>
               <li>能用教育理论解释设计决策：为什么这样呈现、为什么这样练习、为什么这样反馈</li>
               <li>能把教学问题转成产品需求：从课堂/作业/复盘痛点出发做工具</li>
@@ -249,9 +267,44 @@ pie title 项目类型占比（占位）
             </ul>
           </div>
 
-          <div class="placeholder" data-kind="image" aria-label="教学设计作品/课程作业占位区">
-            <div class="placeholder-title">教学设计作品 / 课程作业展示（占位）</div>
-            <div class="placeholder-hint">可放 1–2 页代表性作业截图，或流程图/思维导图</div>
+          <div class="placeholder-row">
+            <div class="placeholder" data-kind="chart" aria-label="本次作业流程图">
+              <div class="placeholder-title">本次作业流程图</div>
+              <div class="placeholder-hint">从“大纲→内容→可视化→排版→校对→提交”的完整过程。</div>
+              <pre class="mermaid">
+timeline
+  title 作业流程
+  确定主题 : 整理大纲
+  扩写内容 : 经历-行动-成效
+  网页呈现 : 排版/字体/二维码
+  检查可读性 : 日夜模式/移动端
+  优化输出 : 打印/导出PDF
+              </pre>
+            </div>
+
+            <div class="placeholder" data-kind="chart" aria-label="作业结构思维导图">
+              <div class="placeholder-title">作业结构思维导图</div>
+              <div class="placeholder-hint">本次作业的结构框架。</div>
+              <pre class="mermaid">
+mindmap
+  生涯发展报告
+    职业目标设定
+      兴趣起点（高二写博客）
+      目标定位（教育方向全栈）
+      选择理由（专业×自学）
+    具体行动与成效
+      博客迭代
+      项目实践
+      教育技术学
+    动态调整
+      早期（先学技术）
+      变化（聚焦教育场景）
+      计划（资源分享站）
+    总结
+      关键词（实践/反馈/迭代）
+      下一步（持续产出）
+              </pre>
+            </div>
           </div>
         </section>
 
@@ -283,7 +336,7 @@ pie title 项目类型占比（占位）
 
           <div class="two-col">
             <div class="card">
-              <h3 class="card-title">MVP 功能设想（可按要求删改）</h3>
+              <h3 class="card-title">资源分享站（第一版）功能设想</h3>
               <ul class="bullets">
                 <li>资源分类：学科/章节/难度/题型</li>
                 <li>检索与标签：快速定位资料与错题</li>
@@ -292,7 +345,7 @@ pie title 项目类型占比（占位）
               </ul>
             </div>
             <div class="card">
-              <h3 class="card-title">验证方式（建议量化）</h3>
+              <h3 class="card-title">验证方式（可评估）</h3>
               <ul class="bullets">
                 <li>用户数：同学/学习群体的试用人数</li>
                 <li>留存率：是否愿意持续使用与回访</li>
@@ -302,9 +355,9 @@ pie title 项目类型占比（占位）
           </div>
 
           <div class="placeholder-row">
-            <div class="placeholder" data-kind="chart" aria-label="行动计划甘特图占位区">
+            <div class="placeholder" data-kind="chart" aria-label="行动计划甘特图">
               <div class="placeholder-title">行动计划甘特图</div>
-              <div class="placeholder-hint">未来 8–12 周：需求→原型→开发→上线→反馈→迭代</div>
+              <div class="placeholder-hint">按“规划→开发→上线与迭代”推进，确保每一步都能交付可见成果。</div>
               <pre class="mermaid" max-width="800">
 gantt
   title 资源分享站 12 周行动计划
@@ -320,16 +373,16 @@ gantt
   上传与版本管理     :b2, after b1, 14d
 
   section 上线与迭代
-  内测与修复         :c1, after b2, 7d
+  内测与修复         :c1, after b2, 10d
   收集反馈与迭代     :c2, after c1, 14d
               </pre>
             </div>
-            <div class="placeholder" data-kind="chart" aria-label="反馈闭环图占位区">
+            <div class="placeholder" data-kind="chart" aria-label="反馈闭环图">
               <div class="placeholder-title">实践反馈闭环</div>
-              <div class="placeholder-hint">可放循环图：发布→数据→访谈→改版→再发布</div>
+              <div class="placeholder-hint">用数据与反馈驱动迭代：小步快跑，优先验证价值。</div>
               <pre class="mermaid">
 flowchart LR
-  A[发布MVP] --> B[收集数据/反馈]
+  A[发布第一版] --> B[收集数据/反馈]
   B --> C[分析问题与机会]
   C --> D[制定改进方案]
   D --> E[迭代开发]
@@ -375,9 +428,9 @@ flowchart LR
             <div class="qr-head">
               <div>
                 <div class="qr-title">扫码查看</div>
-                <div class="qr-sub">个人博客 / GitHub（可改链接）</div>
+                <div class="qr-sub">个人博客 / GitHub</div>
               </div>
-              <div class="qr-note muted">修改链接后刷新页面即可更新二维码</div>
+              <div class="qr-note muted">相关网站</div>
             </div>
 
             <div class="qr-grid">

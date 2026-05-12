@@ -17,6 +17,19 @@
     --max: 1100px;
     --radius: 14px;
 
+    /* Theme surfaces */
+    --page-bg: radial-gradient(1200px 700px at 10% 0%, rgba(59, 130, 246, .12), transparent 60%),
+        radial-gradient(900px 600px at 90% 10%, rgba(168, 85, 247, .10), transparent 55%),
+        var(--bg);
+    --header-bg: linear-gradient(to bottom, rgba(15, 23, 42, .75), rgba(15, 23, 42, .15));
+    --nav-bg: rgba(11, 15, 23, .75);
+    --surface-1: rgba(15, 23, 42, .45);
+    --surface-2: rgba(15, 23, 42, .55);
+    --surface-3: rgba(2, 6, 23, .25);
+    --surface-4: rgba(2, 6, 23, .35);
+    --surface-5: rgba(15, 23, 42, .35);
+    --surface-6: rgba(15, 23, 42, .75);
+
     /* Typography */
     --app-font-family: "LXGWWenKaiMono", ui-sans-serif, system-ui, -apple-system, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", Arial, sans-serif;
 
@@ -28,21 +41,61 @@
     --qr-corners: extra-rounded; /* square | dot | extra-rounded */
 }
 
+html {
+    color-scheme: dark;
+}
+
+html[data-theme="light"] {
+    color-scheme: light;
+
+    --bg: #f8fafc;
+    --panel: #ffffff;
+    --panel2: #ffffff;
+    --text: #0f172a;
+    --muted: #475569;
+    --border: rgba(15, 23, 42, .14);
+    --focus: rgba(59, 130, 246, .35);
+
+    --page-bg: radial-gradient(1200px 700px at 10% 0%, rgba(59, 130, 246, .10), transparent 60%),
+        radial-gradient(900px 600px at 90% 10%, rgba(168, 85, 247, .08), transparent 55%),
+        var(--bg);
+    --header-bg: linear-gradient(to bottom, rgba(255, 255, 255, .92), rgba(255, 255, 255, .65));
+    --nav-bg: rgba(248, 250, 252, .75);
+    --surface-1: rgba(255, 255, 255, .82);
+    --surface-2: rgba(255, 255, 255, .92);
+    --surface-3: rgba(15, 23, 42, .03);
+    --surface-4: rgba(15, 23, 42, .04);
+    --surface-5: rgba(15, 23, 42, .04);
+    --surface-6: rgba(255, 255, 255, .98);
+
+    --qr-foreground: #0f172a;
+    --qr-background: #ffffff;
+}
+
+:root[data-printing="1"] {
+    --qr-foreground: #111827;
+    --qr-background: #ffffff;
+}
+
 * {
     box-sizing: border-box;
 }
 
 html {
     scroll-behavior: smooth;
+    scroll-padding-top: var(--scroll-offset);
+}
+
+/* Ensure section anchors appear at the top (below sticky nav) */
+.section[id] {
+    scroll-margin-top: var(--scroll-offset);
 }
 
 body {
     margin: 0;
     font-family: var(--app-font-family);
     color: var(--text);
-    background: radial-gradient(1200px 700px at 10% 0%, rgba(59, 130, 246, .12), transparent 60%),
-        radial-gradient(900px 600px at 90% 10%, rgba(168, 85, 247, .10), transparent 55%),
-        var(--bg);
+    background: var(--page-bg);
     line-height: 1.75;
 }
 
@@ -58,7 +111,7 @@ body {
     top: 12px;
     padding: 10px 12px;
     border: 1px solid var(--border);
-    background: rgba(15, 23, 42, .92);
+    background: var(--surface-6);
     border-radius: 10px;
     color: var(--text);
     transform: translateY(-150%);
@@ -75,7 +128,7 @@ body {
 .site-header {
     padding: 28px 0 18px;
     border-bottom: 1px solid var(--border);
-    background: linear-gradient(to bottom, rgba(15, 23, 42, .75), rgba(15, 23, 42, .15));
+    background: var(--header-bg);
 }
 
 .header-grid {
@@ -116,7 +169,7 @@ body {
     top: 0;
     z-index: 50;
     border-bottom: 1px solid var(--border);
-    background: rgba(11, 15, 23, .75);
+    background: var(--nav-bg);
     backdrop-filter: blur(10px);
 }
 
@@ -139,7 +192,7 @@ body {
 
 .site-nav a:hover {
     border-color: var(--border);
-    background: rgba(15, 23, 42, .55);
+    background: var(--surface-2);
 }
 
 .nav-spacer {
@@ -150,14 +203,14 @@ body {
     cursor: pointer;
     color: var(--text);
     border: 1px solid var(--border);
-    background: rgba(15, 23, 42, .55);
+    background: var(--surface-2);
     padding: 8px 12px;
     border-radius: 10px;
     white-space: nowrap;
 }
 
 .nav-btn:hover {
-    background: rgba(15, 23, 42, .75);
+    background: var(--surface-6);
 }
 
 .nav-btn:focus {
@@ -188,7 +241,7 @@ body {
 .section {
     border: 1px solid var(--border);
     border-radius: var(--radius);
-    background: rgba(15, 23, 42, .45);
+    background: var(--surface-1);
     padding: 18px;
 }
 
@@ -208,7 +261,7 @@ h3 {
 
 .card {
     border: 1px solid var(--border);
-    background: rgba(15, 23, 42, .55);
+    background: var(--surface-2);
     border-radius: var(--radius);
     padding: 14px;
 }
@@ -255,7 +308,7 @@ h3 {
     padding: 12px 14px;
     border-radius: var(--radius);
     border: 1px solid var(--border);
-    background: rgba(2, 6, 23, .35);
+    background: var(--surface-4);
 }
 
 .callout ul {
@@ -280,7 +333,7 @@ h3 {
 .placeholder {
     border: 1px dashed rgba(255, 255, 255, .26);
     border-radius: var(--radius);
-    background: rgba(2, 6, 23, .25);
+    background: var(--surface-3);
     padding: 12px;
     min-height: 160px;
     display: flex;
@@ -322,7 +375,7 @@ h3 {
 
 .qr-card {
     border: 1px solid var(--border);
-    background: rgba(15, 23, 42, .55);
+    background: var(--surface-2);
     border-radius: var(--radius);
     padding: 14px;
     margin-top: 12px;
@@ -362,7 +415,7 @@ h3 {
 
 .qr-item {
     border: 1px solid var(--border);
-    background: rgba(2, 6, 23, .25);
+    background: var(--surface-3);
     border-radius: var(--radius);
     padding: 12px;
 }
@@ -398,13 +451,13 @@ h3 {
     border: 1px solid transparent;
     padding: 8px 10px;
     border-radius: 10px;
-    background: rgba(15, 23, 42, .35);
+    background: var(--surface-5);
 }
 
 .qr-link:hover {
     color: var(--text);
     border-color: var(--border);
-    background: rgba(15, 23, 42, .55);
+    background: var(--surface-2);
 }
 
 .quote {
@@ -438,7 +491,7 @@ a {
     border: 1px solid var(--border);
     border-radius: var(--radius);
     overflow: hidden;
-    background: rgba(2, 6, 23, .25);
+    background: var(--surface-3);
 }
 
 .blog-iframe {
@@ -490,6 +543,28 @@ a {
 }
 
 @media print {
+    @page {
+        size: A4;
+        margin: 14mm;
+    }
+
+    html {
+        color-scheme: light !important;
+        background: #fff !important;
+    }
+
+    html,
+    body {
+        height: auto !important;
+        overflow: visible !important;
+        background: #fff !important;
+    }
+
+    * {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+
     :root {
         --bg: #ffffff;
         --panel: #ffffff;
@@ -497,16 +572,54 @@ a {
         --text: #111827;
         --muted: #374151;
         --border: rgba(17, 24, 39, .18);
+        --page-bg: #ffffff;
+        --header-bg: #ffffff;
+        --nav-bg: #ffffff;
+        --surface-1: #ffffff;
+        --surface-2: #ffffff;
+        --surface-3: #ffffff;
+        --surface-4: #ffffff;
+        --surface-5: #ffffff;
+        --surface-6: #ffffff;
+
+        /* 打印：二维码强制黑白，避免夜间主题下“白码白底” */
+        --qr-foreground: #111827;
+        --qr-background: #ffffff;
     }
 
     body {
-        background: #fff;
+        background: #fff !important;
+    }
+
+    /* 打印时避免网格/弹性布局在不同浏览器里出现重叠 */
+    .header-grid,
+    .header-meta dl,
+    .layout,
+    .sidebar,
+    .content,
+    .two-col,
+    .placeholder-row,
+    .qr-grid {
+        display: block !important;
+    }
+
+    .card,
+    .section,
+    .placeholder,
+    .qr-item {
+        width: 100% !important;
     }
 
     .site-nav,
     .skip-link,
-    #printBtn {
+    #printBtn,
+    #themeBtn {
         display: none !important;
+    }
+
+    a {
+        color: #111827;
+        text-decoration: underline;
     }
 
     .layout {
@@ -518,14 +631,95 @@ a {
     }
 
     .section {
+        break-inside: auto;
+    }
+
+    .section-header,
+    h2,
+    h3 {
+        break-after: avoid;
+    }
+
+    .card,
+    .placeholder,
+    .qr-item,
+    .quote {
         break-inside: avoid;
+    }
+
+    .card,
+    .section,
+    .placeholder,
+    .qr-card,
+    .qr-item,
+    .embed-frame {
+        background: transparent !important;
+        box-shadow: none !important;
+    }
+
+    .placeholder {
+        border-color: rgba(17, 24, 39, .25) !important;
     }
 
     .placeholder {
         border-style: solid;
     }
 
+    .placeholder,
+    .placeholder[data-kind="chart"],
+    .placeholder[data-kind="image"] {
+        min-height: 0 !important;
+        display: block !important;
+    }
+
+    .mermaid {
+        overflow: visible !important;
+    }
+
+    pre.mermaid,
+    pre.mermaid svg,
+    .qrcode,
+    .qrcode canvas,
+    .qrcode svg {
+        display: block !important;
+        visibility: visible !important;
+    }
+
+    /* 兼容：夜间主题下的 Mermaid（白字）在打印白底会“看不见” */
+    .mermaid svg {
+        background: transparent !important;
+    }
+
+    .mermaid svg text,
+    .mermaid svg tspan {
+        fill: #111827 !important;
+    }
+
+    .mermaid svg path,
+    .mermaid svg line,
+    .mermaid svg polyline,
+    .mermaid svg polygon,
+    .mermaid svg rect,
+    .mermaid svg circle {
+        stroke: #111827 !important;
+    }
+
+    .mermaid svg rect,
+    .mermaid svg polygon,
+    .mermaid svg circle {
+        fill: transparent !important;
+    }
+
+    .placeholder svg {
+        max-width: 100% !important;
+        height: auto !important;
+    }
+
     .embed-frame {
+        display: none;
+    }
+
+    .blog-embed {
         display: none;
     }
 }
