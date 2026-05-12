@@ -84,20 +84,15 @@
             <div class="placeholder-title">技能雷达图（占位）</div>
             <div class="placeholder-hint">后续可插入图片，或用 ECharts/Excel 导出图替换</div>
             <pre class="mermaid">
-mindmap
-  root((能力画像 · 占位))
-    技术
-      前端(HTML/CSS/JS)
-      后端(API/数据库)
-      工具链(Git/部署)
-    教育
-      教学设计
-      学习者分析
-      评价与反馈
-    产出
-      个人博客
-      小项目
-      资源分享站MVP
+radar-beta
+  axis m["Math"], s["Science"], e["English"]
+  axis h["History"], g["Geography"], a["Art"]
+  curve a["Alice"]{85, 90, 80, 70, 75, 90}
+  curve b["Bob"]{70, 75, 85, 80, 90, 85}
+
+  max 100
+  min 0
+
             </pre>
           </div>
         </section>
@@ -191,9 +186,14 @@ timeline
   下一步计划 : 升级资源分享站 : 收集反馈再迭代
               </pre>
             </div>
-            <div class="placeholder" data-kind="image" aria-label="博客页面截图占位区">
-              <div class="placeholder-title">博客页面截图（占位）</div>
-              <div class="placeholder-hint">可放首页/文章页/后台管理等截图</div>
+          </div>
+
+          <div class="card blog-embed" aria-label="博客 iframe 预览">
+            <h3 class="card-title">博客预览（iframe）</h3>
+            <p class="muted">若此处为空白，通常是网络连接问题；请点击侧边“个人博客”链接在新标签页打开。</p>
+            <div class="embed-frame">
+              <iframe class="blog-iframe" src="https://Florance.top" title="个人博客预览" loading="lazy"
+                referrerpolicy="no-referrer"></iframe>
             </div>
           </div>
 
@@ -221,16 +221,17 @@ timeline
               </ul>
             </div>
           </div>
-
-          <div class="placeholder" data-kind="chart" aria-label="项目类型占比图占位区">
-            <div class="placeholder-title">项目类型占比 / 技术栈分布（占位）</div>
-            <div class="placeholder-hint">可用饼图/柱状图展示：教育类、工具类、练手类项目比例与用到的技术</div>
-            <pre class="mermaid">
+          <div class="placeholder-row">
+            <div class="placeholder" data-kind="chart" aria-label="项目类型占比图占位区">
+              <div class="placeholder-title">项目类型占比 / 技术栈分布（占位）</div>
+              <div class="placeholder-hint">可用饼图/柱状图展示：教育类、工具类、练手类项目比例与用到的技术</div>
+              <pre class="mermaid">
 pie title 项目类型占比（占位）
   "教育学习类" : 40
   "效率工具类" : 35
   "趣味练手类" : 25
             </pre>
+            </div>
           </div>
 
           <h3>行动 3：大学选择教育技术学专业</h3>
@@ -302,17 +303,17 @@ pie title 项目类型占比（占位）
 
           <div class="placeholder-row">
             <div class="placeholder" data-kind="chart" aria-label="行动计划甘特图占位区">
-              <div class="placeholder-title">行动计划甘特图（占位）</div>
-              <div class="placeholder-hint">可展示未来 8–12 周：需求→原型→开发→上线→反馈→迭代</div>
-              <pre class="mermaid">
+              <div class="placeholder-title">行动计划甘特图</div>
+              <div class="placeholder-hint">未来 8–12 周：需求→原型→开发→上线→反馈→迭代</div>
+              <pre class="mermaid" max-width="800">
 gantt
-  title 资源分享站 12 周行动计划（占位）
+  title 资源分享站 12 周行动计划
   dateFormat  YYYY-MM-DD
   axisFormat  %m/%d
 
   section 规划
-  需求梳理           :a1, 2026-05-12, 7d
-  原型与信息架构     :a2, after a1, 7d
+  需求梳理           :a1, 2026-08-1, 7d
+  原型与信息架构     :a2, after a1, 14d
 
   section 开发
   分类/检索基础功能   :b1, after a2, 14d
@@ -324,7 +325,7 @@ gantt
               </pre>
             </div>
             <div class="placeholder" data-kind="chart" aria-label="反馈闭环图占位区">
-              <div class="placeholder-title">实践反馈闭环（占位）</div>
+              <div class="placeholder-title">实践反馈闭环</div>
               <div class="placeholder-hint">可放循环图：发布→数据→访谈→改版→再发布</div>
               <pre class="mermaid">
 flowchart LR
@@ -370,23 +371,48 @@ flowchart LR
             <p>“把学习者需要的工具做出来，把能提升学习效果的设计坚持下去。”</p>
           </div>
 
-          <br>
+          <section class="qr-card" aria-label="二维码">
+            <div class="qr-head">
+              <div>
+                <div class="qr-title">扫码查看</div>
+                <div class="qr-sub">个人博客 / GitHub（可改链接）</div>
+              </div>
+              <div class="qr-note muted">修改链接后刷新页面即可更新二维码</div>
+            </div>
 
-          <div class="placeholder" data-kind="image" aria-label="结尾配图占位区">
-            <div class="placeholder-title">结尾配图/二维码（占位）</div>
-            <div class="placeholder-hint">可放个人主页二维码、项目链接二维码或课程封面图</div>
-          </div>
+            <div class="qr-grid">
+              <div class="qr-item">
+                <div class="qr-label">个人博客</div>
+                <div class="qr-frame">
+                  <div class="qrcode" data-qrcode="https://Florance.top" aria-label="个人博客二维码"></div>
+                </div>
+                <a class="qr-link" href="https://Florance.top" target="_blank"
+                  rel="noopener noreferrer">https://Florance.top</a>
+              </div>
+
+              <div class="qr-item">
+                <div class="qr-label">GitHub</div>
+                <div class="qr-frame">
+                  <div class="qrcode" data-qrcode="https://github.com/FloranceYeh" aria-label="GitHub 二维码"></div>
+                </div>
+                <a class="qr-link" href="https://github.com/FloranceYeh" target="_blank"
+                  rel="noopener noreferrer">https://github.com/FloranceYeh</a>
+              </div>
+            </div>
+          </section>
         </section>
 
         <footer class="site-footer" role="contentinfo">
           <p class="copyright">&copy; 2026 Florance. 版权所有。</p>
-          <p class="copyright">本报告由 <a href="https://Florance.top" target="_blank" rel="noopener noreferrer">Florance</a> 制作，使用了 Mermaid.js 进行图表绘制。</p>
+          <p class="copyright">本报告由 <a href="https://Florance.top" target="_blank"
+              rel="noopener noreferrer">Florance</a> 制作，使用了 Mermaid.js 进行图表绘制。</p>
         </footer>
       </article>
     </div>
   </main>
 
-  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+  <script src="./vendor/qr-code-styling.js"></script>
+  <script src="./vendor/mermaid.min.js"></script>
   <script src="./script.js"></script>
 </body>
 
