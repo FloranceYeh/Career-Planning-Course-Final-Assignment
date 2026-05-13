@@ -786,11 +786,6 @@ a {
         background: transparent !important;
     }
 
-    .mermaid svg text,
-    .mermaid svg tspan {
-        fill: #111827 !important;
-    }
-
     .mermaid svg path,
     .mermaid svg line,
     .mermaid svg polyline,
@@ -831,5 +826,9 @@ a {
 
     .sidebar .card {
         margin-bottom: 12px;
+    }
+
+    .card.resources {
+        display: none;
     }
 }
