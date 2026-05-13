@@ -564,6 +564,66 @@ a {
     display: block;
 }
 
+@media (max-width: 549px) {
+    :root {
+        --qr-size: 140px;
+    }
+
+    .site-header {
+        padding: 20px 0 14px;
+    }
+
+    .site-title {
+        font-size: 22px;
+    }
+
+    .header-meta dl {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .header-meta dl > div {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+    }
+
+    .nav-shell {
+        padding: 10px 0;
+    }
+
+    .site-nav a,
+    .nav-btn {
+        white-space: normal;
+        word-break: break-word;
+    }
+
+    .section {
+        padding: 14px;
+    }
+
+    .card {
+        padding: 12px;
+    }
+
+    .kv-list li {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .v {
+        text-align: left;
+    }
+
+    .qr-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .blog-iframe {
+        height: 420px;
+    }
+}
+
 @media (min-width: 900px) {
     .nav-shell {
         padding: 0 16px;
