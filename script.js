@@ -183,6 +183,121 @@
     });
   }
 
+  const mermaidPanZoomState = new WeakMap();
+
+  function clamp(n, min, max) {
+    return Math.min(max, Math.max(min, n));
+  }
+
+  function getMermaidSvgs() {
+    return Array.from(document.querySelectorAll('pre.mermaid svg'));
+  }
+
+  function applyMermaidTransform(svg) {
+    const state = mermaidPanZoomState.get(svg);
+    if (!state) return;
+    const { x, y, scale } = state;
+    svg.style.transformOrigin = '0 0';
+    svg.style.transform = `translate(${x}px, ${y}px) scale(${scale})`;
+  }
+
+  function resetMermaidView(svg) {
+    mermaidPanZoomState.set(svg, { x: 0, y: 0, scale: 1, dragging: false, startX: 0, startY: 0, originX: 0, originY: 0 });
+    applyMermaidTransform(svg);
+  }
+
+  function enableMermaidPanZoom() {
+    const svgs = getMermaidSvgs();
+    svgs.forEach((svg) => {
+      if (!(svg instanceof SVGElement)) return;
+      if (svg.dataset.panzoomReady === '1') return;
+      svg.dataset.panzoomReady = '1';
+
+      if (!mermaidPanZoomState.has(svg)) {
+        resetMermaidView(svg);
+      }
+
+      // Zoom with wheel
+      svg.addEventListener(
+        'wheel',
+        (e) => {
+          // Only zoom when the pointer is over the chart.
+          e.preventDefault();
+
+          const state = mermaidPanZoomState.get(svg) || { x: 0, y: 0, scale: 1 };
+          const rect = svg.getBoundingClientRect();
+          const px = e.clientX - rect.left;
+          const py = e.clientY - rect.top;
+
+          const prevScale = state.scale;
+          const nextScale = clamp(prevScale * (e.deltaY < 0 ? 1.1 : 0.9), 0.5, 4);
+
+          // Keep the point under cursor stable.
+          const worldX = (px - state.x) / prevScale;
+          const worldY = (py - state.y) / prevScale;
+          state.scale = nextScale;
+          state.x = px - worldX * nextScale;
+          state.y = py - worldY * nextScale;
+
+          mermaidPanZoomState.set(svg, state);
+          applyMermaidTransform(svg);
+        },
+        { passive: false }
+      );
+
+      // Pan with drag
+      svg.addEventListener('pointerdown', (e) => {
+        if (e.button !== 0) return;
+        const state = mermaidPanZoomState.get(svg) || { x: 0, y: 0, scale: 1 };
+        state.dragging = true;
+        state.startX = e.clientX;
+        state.startY = e.clientY;
+        state.originX = state.x;
+        state.originY = state.y;
+        mermaidPanZoomState.set(svg, state);
+        try {
+          svg.setPointerCapture(e.pointerId);
+        } catch (_) {
+          // ignore
+        }
+      });
+
+      svg.addEventListener('pointermove', (e) => {
+        const state = mermaidPanZoomState.get(svg);
+        if (!state || !state.dragging) return;
+        state.x = state.originX + (e.clientX - state.startX);
+        state.y = state.originY + (e.clientY - state.startY);
+        mermaidPanZoomState.set(svg, state);
+        applyMermaidTransform(svg);
+      });
+
+      const endDrag = (e) => {
+        const state = mermaidPanZoomState.get(svg);
+        if (!state) return;
+        state.dragging = false;
+        mermaidPanZoomState.set(svg, state);
+        try {
+          svg.releasePointerCapture(e.pointerId);
+        } catch (_) {
+          // ignore
+        }
+      };
+
+      svg.addEventListener('pointerup', endDrag);
+      svg.addEventListener('pointercancel', endDrag);
+      svg.addEventListener('pointerleave', (e) => {
+        // If capture is lost or mouse leaves without pointerup, stop dragging.
+        const state = mermaidPanZoomState.get(svg);
+        if (state && state.dragging) endDrag(e);
+      });
+
+      // Reset
+      svg.addEventListener('dblclick', () => {
+        resetMermaidView(svg);
+      });
+    });
+  }
+
   async function renderMermaid(theme) {
     if (!window.mermaid) return;
 
@@ -210,6 +325,8 @@
       });
 
       await window.mermaid.run({ querySelector: 'pre.mermaid' });
+
+      enableMermaidPanZoom();
     } catch (e) {
       // ignore
     }

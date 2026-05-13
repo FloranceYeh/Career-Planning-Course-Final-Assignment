@@ -436,6 +436,19 @@ h3 {
     height: auto;
 }
 
+/* Mermaid charts: allow pan/zoom interactions */
+.mermaid svg,
+pre.mermaid svg {
+    cursor: grab;
+    touch-action: none;
+    user-select: none;
+}
+
+.mermaid svg:active,
+pre.mermaid svg:active {
+    cursor: grabbing;
+}
+
 .qr-card {
     border: 1px solid var(--border);
     background: var(--surface-2);
@@ -889,6 +902,10 @@ a {
     }
 
     .card.resources {
+        display: none;
+    }
+
+    .muted.webhint {
         display: none;
     }
 }
