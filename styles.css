@@ -437,6 +437,7 @@ h3 {
 }
 
 /* Mermaid charts: allow pan/zoom interactions */
+pre.mermaid,
 .mermaid svg,
 pre.mermaid svg {
     cursor: grab;
@@ -444,6 +445,7 @@ pre.mermaid svg {
     user-select: none;
 }
 
+pre.mermaid:active,
 .mermaid svg:active,
 pre.mermaid svg:active {
     cursor: grabbing;

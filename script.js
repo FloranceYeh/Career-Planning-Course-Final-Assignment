@@ -193,6 +193,35 @@
     return Array.from(document.querySelectorAll('pre.mermaid svg'));
   }
 
+  function getMermaidContainers() {
+    return Array.from(document.querySelectorAll('pre.mermaid'));
+  }
+
+  function getPanZoomContainer(svg) {
+    return svg.closest('pre.mermaid') || svg;
+  }
+
+  function clientToContainerPoint(svg, clientX, clientY) {
+    const container = getPanZoomContainer(svg);
+    const rect = container.getBoundingClientRect();
+    return {
+      x: clientX - rect.left,
+      y: clientY - rect.top,
+    };
+  }
+
+  function getSvgBaseOffset(svg, state) {
+    const container = getPanZoomContainer(svg);
+    const cRect = container.getBoundingClientRect();
+    const sRect = svg.getBoundingClientRect();
+    const x = state?.x || 0;
+    const y = state?.y || 0;
+    return {
+      baseX: sRect.left - cRect.left - x,
+      baseY: sRect.top - cRect.top - y,
+    };
+  }
+
   function applyMermaidTransform(svg) {
     const state = mermaidPanZoomState.get(svg);
     if (!state) return;
@@ -221,37 +250,37 @@
   }
 
   function enableMermaidPanZoom() {
-    const svgs = getMermaidSvgs();
-    svgs.forEach((svg) => {
+    const containers = getMermaidContainers();
+    containers.forEach((container) => {
+      const svg = container.querySelector('svg');
       if (!(svg instanceof SVGElement)) return;
-      if (svg.dataset.panzoomReady === '1') return;
+
+      if (container.dataset.panzoomReady === '1') return;
+      container.dataset.panzoomReady = '1';
       svg.dataset.panzoomReady = '1';
 
       if (!mermaidPanZoomState.has(svg)) {
         resetMermaidView(svg);
       }
 
-      // Zoom with wheel
-      svg.addEventListener(
+      // Zoom with wheel (bind to container so blank space works)
+      container.addEventListener(
         'wheel',
         (e) => {
-          // Only zoom when the pointer is over the chart.
           e.preventDefault();
 
           const state = mermaidPanZoomState.get(svg) || { x: 0, y: 0, scale: 1 };
-          const rect = svg.getBoundingClientRect();
-          const px = e.clientX - rect.left;
-          const py = e.clientY - rect.top;
+          const { x: px, y: py } = clientToContainerPoint(svg, e.clientX, e.clientY);
+          const { baseX, baseY } = getSvgBaseOffset(svg, state);
 
           const prevScale = state.scale;
           const nextScale = clamp(prevScale * (e.deltaY < 0 ? 1.1 : 0.9), 0.5, 4);
 
-          // Keep the point under cursor stable.
-          const worldX = (px - state.x) / prevScale;
-          const worldY = (py - state.y) / prevScale;
+          const worldX = (px - baseX - state.x) / prevScale;
+          const worldY = (py - baseY - state.y) / prevScale;
           state.scale = nextScale;
-          state.x = px - worldX * nextScale;
-          state.y = py - worldY * nextScale;
+          state.x = px - baseX - worldX * nextScale;
+          state.y = py - baseY - worldY * nextScale;
 
           mermaidPanZoomState.set(svg, state);
           applyMermaidTransform(svg);
@@ -259,28 +288,25 @@
         { passive: false }
       );
 
-      // Pan with drag
-      svg.addEventListener('pointerdown', (e) => {
-        // Mouse: only left button. Touch/pen: allow.
+      // Pan + pinch (bind to container so interactions work even when SVG is out of view)
+      container.addEventListener('pointerdown', (e) => {
         if (e.pointerType === 'mouse' && e.button !== 0) return;
 
         const state = mermaidPanZoomState.get(svg) || { x: 0, y: 0, scale: 1 };
         if (!state.activePointers) state.activePointers = new Map();
 
-        // Limit to 2 pointers for pinch.
         if (state.activePointers.size >= 2 && !state.activePointers.has(e.pointerId)) return;
 
-        state.activePointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+        const p = clientToContainerPoint(svg, e.clientX, e.clientY);
+        state.activePointers.set(e.pointerId, { x: p.x, y: p.y, cx: e.clientX, cy: e.clientY });
 
         if (state.activePointers.size === 1) {
-          // Start pan
           state.dragging = true;
           state.startX = e.clientX;
           state.startY = e.clientY;
           state.originX = state.x;
           state.originY = state.y;
         } else if (state.activePointers.size === 2) {
-          // Start pinch (also supports midpoint pan)
           state.dragging = false;
           const pts = Array.from(state.activePointers.values());
           const dx = pts[0].x - pts[1].x;
@@ -288,25 +314,27 @@
           state.pinchStartDist = Math.hypot(dx, dy) || 1;
           state.pinchStartScale = state.scale;
 
+          const { baseX, baseY } = getSvgBaseOffset(svg, state);
           const midX = (pts[0].x + pts[1].x) / 2;
           const midY = (pts[0].y + pts[1].y) / 2;
-          state.pinchWorldX = (midX - state.x) / state.scale;
-          state.pinchWorldY = (midY - state.y) / state.scale;
+          state.pinchWorldX = (midX - baseX - state.x) / state.scale;
+          state.pinchWorldY = (midY - baseY - state.y) / state.scale;
         }
 
         mermaidPanZoomState.set(svg, state);
         try {
-          svg.setPointerCapture(e.pointerId);
+          container.setPointerCapture(e.pointerId);
         } catch (_) {
           // ignore
         }
       });
 
-      svg.addEventListener('pointermove', (e) => {
+      container.addEventListener('pointermove', (e) => {
         const state = mermaidPanZoomState.get(svg);
         if (!state || !state.activePointers || !state.activePointers.has(e.pointerId)) return;
 
-        state.activePointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+        const p = clientToContainerPoint(svg, e.clientX, e.clientY);
+        state.activePointers.set(e.pointerId, { x: p.x, y: p.y, cx: e.clientX, cy: e.clientY });
 
         if (state.activePointers.size === 1) {
           if (!state.dragging) return;
@@ -324,12 +352,13 @@
           const dist = Math.hypot(dx, dy) || 1;
           const nextScale = clamp(state.pinchStartScale * (dist / (state.pinchStartDist || 1)), 0.5, 4);
 
+          const { baseX, baseY } = getSvgBaseOffset(svg, state);
           const midX = (pts[0].x + pts[1].x) / 2;
           const midY = (pts[0].y + pts[1].y) / 2;
 
           state.scale = nextScale;
-          state.x = midX - state.pinchWorldX * nextScale;
-          state.y = midY - state.pinchWorldY * nextScale;
+          state.x = midX - baseX - state.pinchWorldX * nextScale;
+          state.y = midY - baseY - state.pinchWorldY * nextScale;
 
           mermaidPanZoomState.set(svg, state);
           applyMermaidTransform(svg);
@@ -346,33 +375,31 @@
         if (!state.activePointers || state.activePointers.size === 0) {
           state.dragging = false;
         } else if (state.activePointers.size === 1) {
-          // Continue panning with the remaining pointer without forcing a lift.
           const p = Array.from(state.activePointers.values())[0];
           state.dragging = true;
-          state.startX = p.x;
-          state.startY = p.y;
+          state.startX = p.cx;
+          state.startY = p.cy;
           state.originX = state.x;
           state.originY = state.y;
         }
 
         mermaidPanZoomState.set(svg, state);
         try {
-          svg.releasePointerCapture(e.pointerId);
+          container.releasePointerCapture(e.pointerId);
         } catch (_) {
           // ignore
         }
       };
 
-      svg.addEventListener('pointerup', endDrag);
-      svg.addEventListener('pointercancel', endDrag);
-      svg.addEventListener('pointerleave', (e) => {
-        // If capture is lost or mouse leaves without pointerup, stop dragging.
+      container.addEventListener('pointerup', endDrag);
+      container.addEventListener('pointercancel', endDrag);
+      container.addEventListener('pointerleave', (e) => {
         const state = mermaidPanZoomState.get(svg);
         if (state && state.dragging && e.pointerType === 'mouse') endDrag(e);
       });
 
       // Reset
-      svg.addEventListener('dblclick', () => {
+      container.addEventListener('dblclick', () => {
         resetMermaidView(svg);
       });
     });
