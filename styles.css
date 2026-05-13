@@ -374,7 +374,7 @@ h3 {
 
 .two-col {
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr 1fr;
     gap: 12px;
     margin-top: 12px;
 }
@@ -543,6 +543,14 @@ pre.mermaid svg:active {
     border-left: 3px solid rgba(59, 130, 246, .65);
     padding: 10px 12px;
     background: rgba(59, 130, 246, .08);
+    border-radius: 10px;
+}
+
+.quote-green{
+    margin-top: 12px;
+    border-left: 3px solid rgba(59, 246, 131, 0.65);
+    padding: 10px 12px;
+    background: rgba(59, 246, 109, 0.08);
     border-radius: 10px;
 }
 
@@ -767,10 +775,7 @@ a {
     .header-grid,
     .header-meta dl,
     .layout,
-    .sidebar,
-    .content,
-    .two-col,
-    .placeholder-row {
+    .sidebar {
         display: block !important;
     }
 
@@ -892,12 +897,7 @@ a {
         grid-template-columns: repeat(3, auto);
         gap: 16px;
     }
-    .two-col {
-        margin-top: 0;
-    }
-    .two-col .card{
-        margin-top: 12px;
-    }
+
 
     .sidebar .card {
         margin-bottom: 12px;
