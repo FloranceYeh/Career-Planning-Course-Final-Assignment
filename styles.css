@@ -7,9 +7,9 @@
 }
 
 :root {
-    --bg: #0b0f17;
-    --panel: #0f172a;
-    --panel2: #0b1220;
+    --bg: #0b1712;
+    --panel: #0f2a14;
+    --panel2: #0b2011;
     --text: #e5e7eb;
     --muted: #a1a1aa;
     --border: rgba(255, 255, 255, .10);
@@ -18,8 +18,8 @@
     --radius: 14px;
 
     /* Theme surfaces */
-    --page-bg: radial-gradient(1200px 700px at 10% 0%, rgba(59, 130, 246, .12), transparent 60%),
-        radial-gradient(900px 600px at 90% 10%, rgba(168, 85, 247, .10), transparent 55%),
+    --page-bg: radial-gradient(1200px 700px at 10% 0%, rgba(255, 198, 198, 0.12), transparent 60%),
+        radial-gradient(900px 600px at 90% 10%, rgba(161, 255, 173, 0.1), transparent 55%),
         var(--bg);
     --header-bg: linear-gradient(to bottom, rgba(15, 23, 42, .75), rgba(15, 23, 42, .15));
     --nav-bg: rgba(11, 15, 23, .75);
@@ -58,8 +58,8 @@ html[data-theme="light"] {
     --border: rgba(15, 23, 42, .14);
     --focus: rgba(59, 130, 246, .35);
 
-    --page-bg: radial-gradient(1200px 700px at 10% 0%, rgba(59, 130, 246, .10), transparent 60%),
-        radial-gradient(900px 600px at 90% 10%, rgba(168, 85, 247, .08), transparent 55%),
+    --page-bg: radial-gradient(1200px 700px at 10% 0%, rgba(170, 255, 211, 0.1), transparent 60%),
+        radial-gradient(900px 600px at 90% 10%, rgba(255, 139, 139, 0.08), transparent 55%),
         var(--bg);
     --header-bg: linear-gradient(to bottom, rgba(255, 255, 255, .92), rgba(255, 255, 255, .65));
     --nav-bg: rgba(248, 250, 252, .75);
