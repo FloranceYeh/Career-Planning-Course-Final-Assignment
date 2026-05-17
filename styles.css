@@ -12,23 +12,23 @@
     --panel2: #0b2011;
     --text: #e5e7eb;
     --muted: #a1a1aa;
-    --border: rgba(255, 255, 255, .10);
-    --focus: rgba(59, 130, 246, .55);
+    --border: rgba(255, 255, 255, 0.1);
+    --focus: rgba(59, 246, 118, 0.55);
     --max: 1200px;
     --radius: 14px;
 
     /* Theme surfaces */
-    --page-bg: radial-gradient(1200px 700px at 10% 0%, rgba(255, 198, 198, 0.12), transparent 60%),
-        radial-gradient(900px 600px at 90% 10%, rgba(161, 255, 173, 0.1), transparent 55%),
+    --page-bg: radial-gradient(1200px 700px at 10% 0%, rgba(237, 255, 159, 0.12), transparent 60%),
+        radial-gradient(900px 600px at 90% 10%, rgba(255, 184, 184, 0.1), transparent 55%),
         var(--bg);
-    --header-bg: linear-gradient(to bottom, rgba(15, 23, 42, .75), rgba(15, 23, 42, .15));
-    --nav-bg: rgba(11, 15, 23, .75);
-    --surface-1: rgba(15, 23, 42, .45);
-    --surface-2: rgba(15, 23, 42, .55);
-    --surface-3: rgba(2, 6, 23, .25);
-    --surface-4: rgba(2, 6, 23, .35);
-    --surface-5: rgba(15, 23, 42, .35);
-    --surface-6: rgba(15, 23, 42, .75);
+    --header-bg: linear-gradient(to bottom, rgba(3, 20, 3, 0.75), rgba(15, 23, 42, .15));
+    --nav-bg: rgba(11, 23, 15, .75);
+    --surface-1: rgba(15, 42, 23, .45);
+    --surface-2: rgba(15, 42, 23, .55);
+    --surface-3: rgba(2, 23, 6, .25);
+    --surface-4: rgba(2, 23, 6, .35);
+    --surface-5: rgba(15, 42, 23, .35);
+    --surface-6: rgba(15, 42, 23, .75);
 
     /* Typography */
     --app-font-family: "LXGWWenKaiMono", ui-sans-serif, system-ui, -apple-system, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", Arial, sans-serif;
@@ -53,10 +53,10 @@ html[data-theme="light"] {
     --bg: #f8fafc;
     --panel: #ffffff;
     --panel2: #ffffff;
-    --text: #0f172a;
-    --muted: #475569;
-    --border: rgba(15, 23, 42, .14);
-    --focus: rgba(59, 130, 246, .35);
+    --text: #0f2a1a;
+    --muted: #47694a;
+    --border: rgba(15, 42, 21, 0.14);
+    --focus: rgba(65, 246, 59, 0.35);
 
     --page-bg: radial-gradient(1200px 700px at 10% 0%, rgba(170, 255, 211, 0.1), transparent 60%),
         radial-gradient(900px 600px at 90% 10%, rgba(255, 139, 139, 0.08), transparent 55%),
@@ -65,17 +65,17 @@ html[data-theme="light"] {
     --nav-bg: rgba(248, 250, 252, .75);
     --surface-1: rgba(255, 255, 255, .82);
     --surface-2: rgba(255, 255, 255, .92);
-    --surface-3: rgba(15, 23, 42, .03);
-    --surface-4: rgba(15, 23, 42, .04);
-    --surface-5: rgba(15, 23, 42, .04);
+    --surface-3: rgba(15, 42, 22, 0.03);
+    --surface-4: rgba(15, 42, 20, 0.04);
+    --surface-5: rgba(15, 42, 22, 0.04);
     --surface-6: rgba(255, 255, 255, .98);
 
-    --qr-foreground: #0f172a;
+    --qr-foreground: #0f2a18;
     --qr-background: #ffffff;
 }
 
 :root[data-printing="1"] {
-    --qr-foreground: #111827;
+    --qr-foreground: #11271c;
     --qr-background: #ffffff;
 }
 
@@ -749,9 +749,9 @@ a {
         --bg: #ffffff;
         --panel: #ffffff;
         --panel2: #ffffff;
-        --text: #111827;
-        --muted: #374151;
-        --border: rgba(17, 24, 39, .18);
+        --text: #112718;
+        --muted: #37513d;
+        --border: rgba(17, 39, 20, 0.18);
         --page-bg: #ffffff;
         --header-bg: #ffffff;
         --nav-bg: #ffffff;
@@ -763,7 +763,7 @@ a {
         --surface-6: #ffffff;
 
         /* 打印：二维码强制黑白，避免夜间主题下“白码白底” */
-        --qr-foreground: #111827;
+        --qr-foreground: #112716;
         --qr-background: #ffffff;
     }
 
