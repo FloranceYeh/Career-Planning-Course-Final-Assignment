@@ -230,6 +230,20 @@ body {
     perspective: 900px;
 }
 
+@keyframes planetRotate {
+    0% {
+        height: 20%;
+    }
+
+    50% {
+        height: 40%;
+    }
+    
+    100% {
+        height: 20%;
+    }
+}
+
 .cover-ring-back,
 .cover-ring-front {
     left: 50%;
@@ -242,6 +256,7 @@ body {
     pointer-events: none;
     box-sizing: border-box;
     position: absolute;
+    animation: planetRotate 20s linear infinite;
 }
 
 .cover-ring-back {
@@ -948,6 +963,7 @@ a {
         page-break-after: always;
         background: #fff !important;
         color: #111827 !important;
+        margin-top: 20mm;
     }
 
     .hero-cover::before,

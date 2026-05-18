@@ -14,26 +14,64 @@
 
   let currentTheme = null;
 
+  let pointerAnimationFrame = null;
+  let currentPointerX = 70;
+  let currentPointerY = 50;
+
   function setCoverPointerPosition(xPercent, yPercent) {
     if (!heroCover) return;
+    currentPointerX = xPercent;
+    currentPointerY = yPercent;
     heroCover.style.setProperty('--cover-pointer-x', `${xPercent}%`);
     heroCover.style.setProperty('--cover-pointer-y', `${yPercent}%`);
   }
 
+  function smoothReturnPointer() {
+    if (pointerAnimationFrame) cancelAnimationFrame(pointerAnimationFrame);
+
+    const targetX = 70;
+    const targetY = 50;
+    const duration = 200; // 0.6秒
+    const startTime = performance.now();
+
+    function animate(now) {
+      const elapsed = now - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      // 使用 ease-out 缓动函数
+      const easeProgress = 1 - Math.pow(1 - progress, 3);
+
+      const x = currentPointerX + (targetX - currentPointerX) * easeProgress;
+      const y = currentPointerY + (targetY - currentPointerY) * easeProgress;
+
+      heroCover.style.setProperty('--cover-pointer-x', `${x}%`);
+      heroCover.style.setProperty('--cover-pointer-y', `${y}%`);
+
+      if (progress < 1) {
+        pointerAnimationFrame = requestAnimationFrame(animate);
+      } else {
+        currentPointerX = targetX;
+        currentPointerY = targetY;
+      }
+    }
+
+    pointerAnimationFrame = requestAnimationFrame(animate);
+  }
+
   if (heroCover) {
-    setCoverPointerPosition(70,50);
+    setCoverPointerPosition(70, 50);
 
     heroCover.addEventListener('pointermove', (e) => {
+      if (pointerAnimationFrame) cancelAnimationFrame(pointerAnimationFrame);
       const rect = heroCover.getBoundingClientRect();
       if (!rect.width || !rect.height) return;
 
       const xPercent = ((e.clientX - rect.left) / rect.width) * 100;
       const yPercent = ((e.clientY - rect.top) / rect.height) * 100;
-      setCoverPointerPosition(clamp(xPercent, 30, 70), clamp(yPercent, 24, 62));
+      setCoverPointerPosition(xPercent, yPercent);
     });
 
     heroCover.addEventListener('pointerleave', () => {
-      setCoverPointerPosition(70, 50);
+      smoothReturnPointer();
     });
   }
 
