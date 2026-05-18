@@ -1,5 +1,6 @@
 (function () {
   const siteNav = document.querySelector('.site-nav');
+  const heroCover = document.querySelector('.hero-cover');
   const navToggleBtn = document.getElementById('navToggleBtn');
   const navMenu = document.getElementById('navMenu');
   const printBtn = document.getElementById('printBtn');
@@ -12,6 +13,29 @@
   };
 
   let currentTheme = null;
+
+  function setCoverPointerPosition(xPercent, yPercent) {
+    if (!heroCover) return;
+    heroCover.style.setProperty('--cover-pointer-x', `${xPercent}%`);
+    heroCover.style.setProperty('--cover-pointer-y', `${yPercent}%`);
+  }
+
+  if (heroCover) {
+    setCoverPointerPosition(50, 38);
+
+    heroCover.addEventListener('pointermove', (e) => {
+      const rect = heroCover.getBoundingClientRect();
+      if (!rect.width || !rect.height) return;
+
+      const xPercent = ((e.clientX - rect.left) / rect.width) * 100;
+      const yPercent = ((e.clientY - rect.top) / rect.height) * 100;
+      setCoverPointerPosition(clamp(xPercent, 30, 70), clamp(yPercent, 24, 62));
+    });
+
+    heroCover.addEventListener('pointerleave', () => {
+      setCoverPointerPosition(50, 38);
+    });
+  }
 
   function isDesktopNav() {
     return window.matchMedia && window.matchMedia('(min-width: 900px)').matches;
