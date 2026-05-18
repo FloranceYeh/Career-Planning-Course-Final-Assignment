@@ -21,7 +21,7 @@
   }
 
   if (heroCover) {
-    setCoverPointerPosition(50, 38);
+    setCoverPointerPosition(70,50);
 
     heroCover.addEventListener('pointermove', (e) => {
       const rect = heroCover.getBoundingClientRect();
@@ -33,7 +33,7 @@
     });
 
     heroCover.addEventListener('pointerleave', () => {
-      setCoverPointerPosition(50, 38);
+      setCoverPointerPosition(70, 50);
     });
   }
 
