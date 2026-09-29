@@ -98,6 +98,10 @@
               <span class="k">近期行动</span>
               <span class="v">博客升级为学习资源分享站</span>
             </li>
+            <li>
+              <span class="k">已上线作品</span>
+              <span class="v">安师生活地图（校园分享地图）</span>
+            </li>
           </ul>
         </section>
 
@@ -107,6 +111,8 @@
             <li><a href="https://Florance.top" target="_blank" rel="noopener noreferrer">个人博客</a></li>
             <li><a href="https://github.com/FloranceYeh" target="_blank" rel="noopener noreferrer">GitHub 仓库</a></li>
             <li><a href="http://cpcfa.florance.top/" target="_blank" rel="noopener noreferrer">网页版作业</a></li>
+            <li><a href="https://map.florance.top/" target="_blank" rel="noopener noreferrer">校园生活地图（安师生活地图）</a></li>
+            <li><a href="https://github.com/FloranceYeh/ahnu-share-map" target="_blank" rel="noopener noreferrer">地图项目源码（GPLv3）</a></li>
           </ul>
         </section>
 
@@ -258,15 +264,137 @@
             <br>
             同时也让我逐步接触到“全栈”所涉及的不同技术要素。
           </p>
+
+          <h4>代表性项目：安师生活地图（校园生活分享地图）</h4>
+          <p>
+            2026 年暑假，我做了一个真正面向“使用者”的项目：<strong>安师生活地图</strong>
+            （<a href="https://map.florance.top/" target="_blank" rel="noopener noreferrer">map.florance.top</a>）。
+            <br>
+            它要解决的问题很具体：新生和同学常常在群里反复问“哪家店好吃”“哪里能修电脑”“周末去哪玩”，
+            <br>
+            这些经验散落在聊天记录里，问一次、答一次，然后就被刷过去了。
+            <br>
+            于是我把它们整理成一张可以按分类筛选、按地点查看的校园生活地图，让信息被沉淀下来、被反复使用。
+          </p>
+
+          <div class="card project-card">
+            <h3 class="card-title">项目档案</h3>
+            <ul class="kv-list">
+              <li>
+                <span class="k">项目定位</span>
+                <span class="v">校园生活 / 美食与娱乐分享地图（已上线）</span>
+              </li>
+              <li>
+                <span class="k">线上地址</span>
+                <span class="v"><a href="https://map.florance.top/" target="_blank" rel="noopener noreferrer">map.florance.top</a></span>
+              </li>
+              <li>
+                <span class="k">开源情况</span>
+                <span class="v">GPLv3 开源，75 次提交 / 3 位贡献者</span>
+              </li>
+              <li>
+                <span class="k">我的角色</span>
+                <span class="v">独立完成需求、设计、前后端与上线运维</span>
+              </li>
+            </ul>
+            <div class="tech-tags" aria-label="技术栈">
+              <span class="tag">Vite</span>
+              <span class="tag">React</span>
+              <span class="tag">高德地图 JS API</span>
+              <span class="tag">Supabase</span>
+              <span class="tag">PostgreSQL</span>
+              <span class="tag">Edge Functions</span>
+              <span class="tag">RLS 行级权限</span>
+              <span class="tag">Storage</span>
+              <span class="tag">Cloudflare Turnstile</span>
+              <span class="tag">Vercel</span>
+              <span class="tag">SMTP 通知</span>
+            </div>
+          </div>
+
+          <p>
+            这个项目也是我第一次把“全栈”完整地走了一遍：
+            <br>
+            前端负责地图、分类筛选、详情页与投稿表单；后端用 Supabase 承担数据库、鉴权、对象存储与 Edge Function；
+            <br>
+            部署在 Vercel 并绑定自有域名。真正花时间的并不是把页面画出来，而是<strong>让信息值得信任</strong>。
+          </p>
+
+          <div class="two-col">
+            <div class="card">
+              <h3 class="card-title">关键实现</h3>
+              <ul class="bullets">
+                <li>投稿入口：匿名投稿需先通过 Cloudflare Turnstile 人机校验，并限制每日投稿次数。</li>
+                <li>审核机制：投稿先进入待审队列，管理员审核通过后才会出现在公开地图上。</li>
+                <li>图片流转：投稿图片先存进私有存储，审核通过时再迁移到公开存储并回填到地点记录。</li>
+                <li>权限边界：公开地图的数据库策略只允许读取“已通过”的地点，其余数据不可见。</li>
+              </ul>
+            </div>
+            <div class="card">
+              <h3 class="card-title">工程细节</h3>
+              <ul class="bullets">
+                <li>用数据库迁移脚本（001–007）管理表结构演进，而不是手工改表。</li>
+                <li>配置了 CSP、HSTS 等安全响应头，并按最小权限原则设定策略。</li>
+                <li>新投稿写入成功后，自动给管理员发通知邮件，减少审核延迟。</li>
+                <li>用 Git 分支与 Pull Request 组织协作，而不是直接往主干推代码。</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="placeholder-row">
+            <div class="placeholder" data-kind="chart" aria-label="地图项目数据流与反馈闭环">
+              <div class="placeholder-title">安师生活地图：数据流与反馈闭环</div>
+              <div class="placeholder-hint">从匿名投稿到公开上架，再由使用者反馈驱动下一轮迭代。</div>
+              <pre class="mermaid">flowchart LR
+  A[匿名投稿] --&gt; B[人机校验与限额]
+  B --&gt; C[待审核队列]
+  C --&gt; D[管理员审核]
+  D --&gt; E[公开地图展示]
+  E --&gt; F[同学使用与反馈]
+  F --&gt; A
+              </pre>
+            </div>
+
+            <div class="placeholder" data-kind="chart" aria-label="安师生活地图开发历程">
+              <div class="placeholder-title">安师生活地图：开发历程（2026 暑假）</div>
+              <div class="placeholder-hint">从立项到上线再到协作迭代，一条可追溯的真实时间线。</div>
+              <pre class="mermaid">timeline
+  title 安师生活地图 开发历程
+  8 月上旬 : 立项与数据建模 : 地图底图与投稿入口
+  8 月中旬 : 打通审核链路 : 管理员后台与邮件通知
+  8 月下旬 : 上线自有域名 : 配置安全响应头与权限策略
+  9 月初 : 体验打磨 : 分类筛选 / 移动端布局
+  上线之后 : 开源协作 : 合并同学 PR 并持续迭代
+              </pre>
+            </div>
+          </div>
+
+          <div class="callout">
+            <strong>成效与证据（可验证）</strong>
+            <ul>
+              <li>已真实上线：拥有独立域名与 HTTPS，任何人打开链接就能直接使用，不再停留在本地 Demo。</li>
+              <li>开源协作：以 GPLv3 协议公开源码，累计 75 次提交、3 位贡献者，并收到并合并了同学提交的改进 PR。</li>
+              <li>内容质量：靠“人机校验 + 每日限额 + 管理员审核”三道机制过滤垃圾信息，让地图上的内容可信、可用。</li>
+              <li>反馈闭环：上线后按真实使用情况持续迭代——补充分类筛选、优化移动端安全区布局、保持管理员登录状态等。</li>
+            </ul>
+          </div>
+
+          <p class="muted">
+            想直接看效果，可以打开<a href="https://map.florance.top/" target="_blank" rel="noopener noreferrer">安师生活地图</a>，
+            或查看<a href="https://github.com/FloranceYeh/ahnu-share-map" target="_blank" rel="noopener noreferrer">开源仓库</a>
+            （该站点设置了同源限制，无法在本页内嵌预览，请在新标签页打开）。
+          </p>
+
           <div class="two-col">
             <div class="placeholder" data-kind="chart" aria-label="项目类型分布">
               <div class="placeholder-title">项目类型分布（按时间投入粗略归类）</div>
-              <div class="placeholder-hint">不同项目承担不同目标：学习工具偏“可用性”，练手项目偏“技能覆盖”。</div>
+              <div class="placeholder-hint">不同项目承担不同目标：校园服务类投入最多，学习工具偏“可用性”，练手项目偏“技能覆盖”。</div>
               <pre class="mermaid">pie
   title 项目类型占比
-  "教育学习类" : 45
-  "效率工具类" : 35
-  "趣味练手类" : 20
+  "校园服务类" : 30
+  "教育学习类" : 30
+  "效率工具类" : 25
+  "趣味练手类" : 15
             </pre>
             </div>
             <div class="card">
@@ -275,6 +403,7 @@
                 <li>把需求拆成可交付的任务</li>
                 <li>理解接口/数据结构与前后端协作</li>
                 <li>更重视可维护性与复用性</li>
+                <li>开始关心“数据是否可信、如何防止滥用”，而不只是功能能不能跑通</li>
               </ul>
             </div>
           </div>
@@ -283,6 +412,7 @@
               <h3 class="card-title">项目清单</h3>
               <ul class="bullets">
                 <li>学习辅助：知识点卡片、复习清单、资料整理与检索的小工具页面。</li>
+                <li>校园服务：安师生活地图——校园生活信息分享地图（美食 / 娱乐 / 生活服务，已上线，含后端与审核流程）。</li>
                 <li>效率工具：批量整理文件、快捷输入、自动化脚本（用于节省重复操作时间）。</li>
                 <li>趣味练手：小游戏与交互 Demo（用于练习事件、状态与 UI 设计）。</li>
               </ul>
@@ -351,6 +481,7 @@
     动态调整
       早期（先学技术）
       变化（聚焦教育场景）
+      实践（校园生活地图上线）
       计划（资源分享站）
     总结
       关键词（实践/反馈/迭代）
@@ -382,7 +513,25 @@
             这使我的目标逐渐从“做开发”调整为“做能落地的教育产品与学习工具”。
           </p>
 
-          <h3>3. 下一步计划：把博客升级为学习资源分享站</h3>
+          <h3>3. 一次真实的“实践—反馈—调整”：安师生活地图</h3>
+          <p>
+            暑假做的<strong>安师生活地图</strong>，是我第一次把作品交到真实使用者手里，也第一次完整经历了“实践—反馈—调整”的循环：
+            <br>
+            刚起步时我的想法很简单——把地点标到地图上就行；真正上线后才发现，决定它有没有用的不是功能数量，而是<strong>信息可不可信、手机上顺不顺手</strong>。
+            <br>
+            于是我主动把重心从“再多做一个功能”调回“把投稿与审核这条链路做扎实”，并针对真实反馈陆续调整了分类筛选、移动端布局与管理员入口。
+          </p>
+
+          <div class="callout">
+            <strong>这段经历让我调整了三点认知</strong>
+            <ul>
+              <li>用户反馈比功能数量更重要：先让核心链路可靠，再考虑扩展。</li>
+              <li>“可信”是需要被设计出来的：审核流程、投稿限额、人机校验都属于产品的一部分。</li>
+              <li>上线不是终点，而是拿到真实反馈、进入迭代循环的起点。</li>
+            </ul>
+          </div>
+
+          <h3>4. 下一步计划：把博客升级为学习资源分享站</h3>
           <p>
             下一阶段我计划把博客从“个人记录”升级为“学习资源分享站”，例如：
             <br>
@@ -414,14 +563,14 @@
           <div class="placeholder-row">
             <div class="placeholder" data-kind="chart" aria-label="行动计划甘特图">
               <div class="placeholder-title">行动计划甘特图</div>
-              <div class="placeholder-hint">按“规划→开发→上线与迭代”推进，确保每一步都能交付可见成果。</div>
+              <div class="placeholder-hint">暑假的校园地图已上线，接下来按“规划→开发→上线与迭代”推进，确保每一步都能交付可见成果。</div>
               <pre class="mermaid" max-width="800">gantt
   title 资源分享站 12 周行动计划
   dateFormat  YYYY-MM-DD
   axisFormat  %m/%d
 
   section 规划
-  需求梳理           :a1, 2026-08-1, 7d
+  需求梳理           :a1, 2026-10-01, 7d
   原型与信息架构     :a2, after a1, 14d
 
   section 开发
@@ -446,7 +595,7 @@
             </div>
           </div>
 
-          <h3>4. 更长远的调整：根据实践反馈持续迭代方向</h3>
+          <h3>5. 更长远的调整：根据实践反馈持续迭代方向</h3>
           <p>
             更长远来看，我会持续用项目实践来验证方向：
             <br>
@@ -476,6 +625,8 @@
             <br>
             现在我希望把这种力量更系统地用到教育场景中：以全栈能力实现学习工具，以教育理论保证有效性，
             <br>
+            暑假上线的安师生活地图是一个小小的证明——我确实能把一个想法做成别人愿意用的东西；
+            <br>
             在持续实践与迭代中逐步成为一名真正能落地的教育方向全栈开发者。
           </p>
 
@@ -491,7 +642,7 @@
             <div class="qr-head">
               <div>
                 <div class="qr-title">扫码查看</div>
-                <div class="qr-sub">网页版作业 / 个人博客 / GitHub仓库 / QQ</div>
+                <div class="qr-sub">网页版作业 / 校园生活地图 / 个人博客 / GitHub仓库 / QQ</div>
               </div>
               <div class="qr-note muted">相关网站</div>
             </div>
@@ -503,6 +654,14 @@
                   <div class="qrcode" data-qrcode="https://cpcfa.florance.top/" aria-label="网页版作业二维码"></div>
                 </div>
                 <a class="qr-link" href="https://cpcfa.florance.top/" target="_blank" rel="noopener noreferrer">https://cpcfa.florance.top/</a>
+              </div>
+
+              <div class="qr-item">
+                <div class="qr-label">安师生活地图</div>
+                <div class="qr-frame">
+                  <div class="qrcode" data-qrcode="https://map.florance.top/" aria-label="安师生活地图二维码"></div>
+                </div>
+                <a class="qr-link" href="https://map.florance.top/" target="_blank" rel="noopener noreferrer">https://map.florance.top/</a>
               </div>
 
               <div class="qr-item">
