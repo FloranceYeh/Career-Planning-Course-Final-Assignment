@@ -3,7 +3,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>生涯发展报告</title>
   <meta name="description" content="职业规划课程期末作业：生涯发展报告（网页版）。">
-  <link rel="stylesheet" href="/subfont/fonts-d083dbc50e.css"><link rel="stylesheet" href="./styles.css">
+  <link rel="stylesheet" href="/subfont/fonts-4143e2e4b2.css"><link rel="stylesheet" href="./styles.css">
 </head>
 
 <body>
@@ -267,7 +267,7 @@
 
           <h4>代表性项目：安师生活地图（校园生活分享地图）</h4>
           <p>
-            2026 年暑假，我做了一个真正面向“使用者”的项目：<strong>安师生活地图</strong>
+            2026 年暑假，我发起并主导开发了一个真正面向“使用者”的项目：<strong>安师生活地图</strong>
             （<a href="https://map.florance.top/" target="_blank" rel="noopener noreferrer">map.florance.top</a>）。
             <br>
             它要解决的问题很具体：新生和同学常常在群里反复问“哪家店好吃”“哪里能修电脑”“周末去哪玩”，
@@ -294,7 +294,11 @@
               </li>
               <li>
                 <span class="k">我的角色</span>
-                <span class="v">独立完成需求、设计、前后端与上线运维</span>
+                <span class="v">项目发起人 / 主导开发（需求、架构、前后端、上线运维）</span>
+              </li>
+              <li>
+                <span class="k">团队分工</span>
+                <span class="v">我主导开发 + 成员负责审核 / 美工 / 信息采集 / 辅助开发</span>
               </li>
             </ul>
             <div class="tech-tags" aria-label="技术栈">
@@ -318,6 +322,27 @@
             前端负责地图、分类筛选、详情页与投稿表单；后端用 Supabase 承担数据库、鉴权、对象存储与 Edge Function；
             <br>
             部署在 Vercel 并绑定自有域名。真正花时间的并不是把页面画出来，而是<strong>让信息值得信任</strong>。
+          </p>
+
+          <div class="callout">
+            <h3 class="card-title">小团队与分工</h3>
+            <p class="muted">
+              这件事最后不是我一个人做完的。为了让它能持续运转，我发起组建了一个小团队：
+              由我主导开发，其他成员分别负责审核、美工、信息采集与辅助开发。
+            </p>
+            <ul class="bullets">
+              <li><strong>我（主导开发）</strong>：定需求与产品方向、设计数据库与接口、实现前端、负责部署上线与迭代节奏，并把任务拆给成员。</li>
+              <li><strong>审核</strong>：处理每天新增的待审投稿，判断信息是否真实、是否适合公开展示。</li>
+              <li><strong>美工</strong>：负责界面视觉与配图素材，让内容更好读、更愿意被点开。</li>
+              <li><strong>信息采集</strong>：线下收集校园内外的地点信息、图片与说明，保证地图上一直有内容可看。</li>
+              <li><strong>辅助开发</strong>：参与部分功能实现与问题修复，补齐我顾不上的细节。</li>
+            </ul>
+          </div>
+
+          <p>
+            分工之后我才意识到：审核、美工、信息采集这些环节，恰恰是纯技术视角最容易忽略、却直接决定产品能否长期运转的部分。
+            <br>
+            也正因为把“谁负责什么”提前说清楚了，我才有精力回到最需要我的地方——架构与迭代。
           </p>
 
           <div class="two-col">
@@ -354,26 +379,14 @@
   F --&gt; A
               </pre>
             </div>
-
-            <div class="placeholder" data-kind="chart" aria-label="安师生活地图开发历程">
-              <div class="placeholder-title">安师生活地图：开发历程（2026 暑假）</div>
-              <div class="placeholder-hint">从立项到上线再到协作迭代，一条可追溯的真实时间线。</div>
-              <pre class="mermaid">timeline
-  title 安师生活地图 开发历程
-  8 月上旬 : 立项与数据建模 : 地图底图与投稿入口
-  8 月中旬 : 打通审核链路 : 管理员后台与邮件通知
-  8 月下旬 : 上线自有域名 : 配置安全响应头与权限策略
-  9 月初 : 体验打磨 : 分类筛选 / 移动端布局
-  上线之后 : 开源协作 : 合并同学 PR 并持续迭代
-              </pre>
-            </div>
           </div>
 
           <div class="callout">
             <strong>成效与证据（可验证）</strong>
             <ul>
               <li>已真实上线：拥有独立域名与 HTTPS，任何人打开链接就能直接使用，不再停留在本地 Demo。</li>
-              <li>开源协作：以 GPLv3 协议公开源码，累计 75 次提交、3 位贡献者，并收到并合并了同学提交的改进 PR。</li>
+              <li>团队协作：从“一个人写代码”变成带一个小团队——我主导开发，成员分别负责审核、美工、信息采集与辅助开发，靠提前说清的分工把日常维护跑了起来。</li>
+              <li>开源协作：以 GPLv3 协议公开源码，累计 75 次提交、3 位代码贡献者（审核、美工、信息采集这类非代码角色不计入其中），并合并了同学提交的改进 PR。</li>
               <li>内容质量：靠“人机校验 + 每日限额 + 管理员审核”三道机制过滤垃圾信息，让地图上的内容可信、可用。</li>
               <li>反馈闭环：上线后按真实使用情况持续迭代——补充分类筛选、优化移动端安全区布局、保持管理员登录状态等。</li>
             </ul>
@@ -404,6 +417,7 @@
                 <li>理解接口/数据结构与前后端协作</li>
                 <li>更重视可维护性与复用性</li>
                 <li>开始关心“数据是否可信、如何防止滥用”，而不只是功能能不能跑通</li>
+                <li>学会把工作拆成角色交出去：定义分工、说清标准，再推进度</li>
               </ul>
             </div>
           </div>
@@ -520,14 +534,17 @@
             刚起步时我的想法很简单——把地点标到地图上就行；真正上线后才发现，决定它有没有用的不是功能数量，而是<strong>信息可不可信、手机上顺不顺手</strong>。
             <br>
             于是我主动把重心从“再多做一个功能”调回“把投稿与审核这条链路做扎实”，并针对真实反馈陆续调整了分类筛选、移动端布局与管理员入口。
+            <br>
+            也是在这个阶段，我组建了一个小团队并承担起主导开发的角色：把审核、美工、信息采集、辅助开发分给成员，让项目从“我一个人的项目”变成一件能持续运转的事。
           </p>
 
           <div class="callout">
-            <strong>这段经历让我调整了三点认知</strong>
+            <strong>这段经历让我调整了四点认知</strong>
             <ul>
               <li>用户反馈比功能数量更重要：先让核心链路可靠，再考虑扩展。</li>
               <li>“可信”是需要被设计出来的：审核流程、投稿限额、人机校验都属于产品的一部分。</li>
               <li>上线不是终点，而是拿到真实反馈、进入迭代循环的起点。</li>
+              <li>一个人做不完的事要靠分工：能把事情讲清楚、让成员也能做好，本身就是一项需要练的能力。</li>
             </ul>
           </div>
 
@@ -563,7 +580,7 @@
           <div class="placeholder-row">
             <div class="placeholder" data-kind="chart" aria-label="行动计划甘特图">
               <div class="placeholder-title">行动计划甘特图</div>
-              <div class="placeholder-hint">暑假的校园地图已上线，接下来按“规划→开发→上线与迭代”推进，确保每一步都能交付可见成果。</div>
+              <div class="placeholder-hint">接下来按“规划→开发→上线与迭代”推进，确保每一步都能交付可见成果。</div>
               <pre class="mermaid" max-width="800">gantt
   title 资源分享站 12 周行动计划
   dateFormat  YYYY-MM-DD
