@@ -1096,6 +1096,27 @@ a {
         position: static;
     }
 
+    /* 分页媒体里不能留下“限高 + 可滚动”的容器：
+       @media (min-width: 900px) 给 .sidebar 加过 max-height/overflow-y，
+       纸张够宽时（A3、或横向打印）这条在打印时会一并生效，内容会被裁掉，
+       浏览器还可能因此迟迟生成不出打印预览（表现为点“保存”没反应）。 */
+    .layout,
+    .sidebar,
+    .content {
+        position: static !important;
+        max-height: none !important;
+        overflow: visible !important;
+    }
+
+    /* 打印是静态快照：常驻动画/过渡没有意义，还会一直占用渲染线程。
+       封面上的圆环是 20s 无限循环动画，正好属于这一类。 */
+    *,
+    *::before,
+    *::after {
+        animation: none !important;
+        transition: none !important;
+    }
+
     .section {
         break-inside: auto;
     }

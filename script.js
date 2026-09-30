@@ -121,7 +121,15 @@
         // ignore
       }
 
-      window.print();
+      // 打印前先摘掉跨域的博客 iframe（详见文件末尾 unloadBlogIframe 的说明）。
+      unloadBlogIframe();
+
+      try {
+        window.print();
+      } finally {
+        // 无论打印成功、取消还是抛错，都要把 iframe 恢复到页面上。
+        restoreBlogIframe();
+      }
 
       // 兜底：部分浏览器在取消打印时不会触发 afterprint。
       try {
@@ -530,12 +538,40 @@
     });
   }
 
+  // 打印期间把跨域的博客 iframe 摘下来。
+  // 它内部会从 unpkg / zstatic 等外部 CDN 拉 Vue、KaTeX、highlight.js 和一个
+  // 老版 mermaid，并且带常驻 canvas 动画；浏览器生成打印预览时要等子框架就绪，
+  // 这类“永远在动 + 依赖第三方 CDN”的 iframe 会让预览卡住不返回
+  // （表现就是：打印窗口弹出来了，点保存没反应）。
+  // 打印样式里 .blog-embed 本来就是 display:none，摘掉不影响任何排版。
+  let blogIframeSrc = null;
+
+  function unloadBlogIframe() {
+    const iframe = document.querySelector('.blog-iframe');
+    if (!iframe) return;
+    const src = iframe.getAttribute('src');
+    if (!src) return;
+    blogIframeSrc = src;
+    iframe.removeAttribute('src');
+  }
+
+  function restoreBlogIframe() {
+    if (!blogIframeSrc) return;
+    const iframe = document.querySelector('.blog-iframe');
+    if (iframe && !iframe.getAttribute('src')) {
+      iframe.setAttribute('src', blogIframeSrc);
+    }
+    blogIframeSrc = null;
+  }
+
   window.addEventListener('beforeprint', () => {
+    unloadBlogIframe();
     document.documentElement.dataset.printing = '1';
     renderQRCodes();
   });
 
   window.addEventListener('afterprint', () => {
+    restoreBlogIframe();
     delete document.documentElement.dataset.printing;
     renderQRCodes();
     renderMermaid(currentTheme || THEMES.dark);
@@ -548,9 +584,11 @@
       const mql = window.matchMedia('print');
       const onChange = (e) => {
         if (e.matches) {
+          unloadBlogIframe();
           document.documentElement.dataset.printing = '1';
           renderQRCodes();
         } else {
+          restoreBlogIframe();
           delete document.documentElement.dataset.printing;
           renderQRCodes();
         }
